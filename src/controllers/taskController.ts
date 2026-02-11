@@ -11,7 +11,8 @@ export const createTask = async (req: any, res: Response) => {
     const newTask = await prisma.task.create({
       data: {
         title,
-        userId: Number(userId) // Ensure userId is a number if your schema expects it
+        // Removed Number() - Neon/Prisma usually expects String/UUID for these IDs
+        userId: String(userId) 
       }
     });
 
@@ -26,8 +27,9 @@ export const getMyTasks = async (req: any, res: Response) => {
   try {
     const userId = req.user.userId;
     const tasks = await prisma.task.findMany({
-      where: { userId: Number(userId) },
-      orderBy: { id: 'desc' } // Newest tasks at the top
+      // Ensure userId is treated as a string
+      where: { userId: String(userId) },
+      orderBy: { id: 'desc' }
     });
     res.json(tasks);
   } catch (error) {
@@ -41,11 +43,10 @@ export const updateTask = async (req: any, res: Response) => {
     const { completed } = req.body;
     const userId = req.user.userId;
 
-    // Use updateMany to ensure only the owner can update it
     const updated = await prisma.task.updateMany({
       where: { 
-        id: Number(id), // Convert string param to number
-        userId: Number(userId) 
+        id: String(id), // IDs are strings in your cloud DB
+        userId: String(userId) 
       },
       data: { completed }
     });
@@ -67,8 +68,8 @@ export const deleteTask = async (req: any, res: Response) => {
 
     const deleted = await prisma.task.deleteMany({
       where: { 
-        id: Number(id), 
-        userId: Number(userId) 
+        id: String(id), 
+        userId: String(userId) 
       }
     });
 
