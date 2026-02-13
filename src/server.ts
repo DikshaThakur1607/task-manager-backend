@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import cors from 'cors';
-//import helmet from 'helmet';
-import userRoutes from './routes/userRoutes';
-import taskRoutes from './routes/taskRoutes';
+import helmet from 'helmet';
+import userRoutes from './routes/userRoutes.js'; 
+import taskRoutes from './routes/taskRoutes.js';
 
 const app = express();
 
