@@ -1,18 +1,23 @@
-import * as express from 'express';
-import * as cors from 'cors';
+import express = require('express'); 
+import cors = require('cors');       
 import * as dotenv from 'dotenv';
 import helmet from 'helmet';
 
 dotenv.config();
 
-const app = (express as any).default ? (express as any).default() : express();
+// Fix: Now that we use 'import = require', we call them directly
+const app = express(); 
 
 app.use(helmet());
-const corsOptions = (cors as any).default ? (cors as any).default() : cors();
-app.use(corsOptions);
+
+// Fix: Simplified cors call
+app.use(cors());
+
 app.use(express.json());
 
-// Ensure your routes are imported correctly below
+// Ensure these are uncommented if you have your routes ready:
+// import { router as userRoutes } from './routes/userRoutes';
+// import { router as taskRoutes } from './routes/taskRoutes';
 // app.use('/users', userRoutes);
 // app.use('/tasks', taskRoutes);
 
