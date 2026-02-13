@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { ZodObject<any, any>, ZodError } from 'zod';
+import { AnyZodObject, ZodError } from 'zod'; // Use AnyZodObject instead
 
-export const validate = (schema: ZodObject<any, any>) => 
+export const validate = (schema: AnyZodObject) => 
   (req: Request, res: Response, next: NextFunction) => {
     try {
       schema.parse({
@@ -12,11 +12,11 @@ export const validate = (schema: ZodObject<any, any>) =>
       next();
     } catch (e: any) {
       if (e instanceof ZodError) {
-        // We use e.flatten() or check e.issues to be safer
         return res.status(400).json({
           status: "fail",
           errors: e.issues.map((issue) => ({
-            field: issue.path[1], // This gets 'title'
+            // If path[1] is undefined, we fall back to the first path item
+            field: issue.path[1] || issue.path[0], 
             message: issue.message
           }))
         });

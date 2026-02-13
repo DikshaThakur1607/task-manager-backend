@@ -1,19 +1,17 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import * dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
+import * cors from 'cors';
 import helmet from 'helmet';
 import userRoutes from './routes/userRoutes.js'; 
 import taskRoutes from './routes/taskRoutes.js';
 
+dotenv.config();
 const app = express();
-
 app.use(helmet());
-app.use(cors({
+app.use(cors.default());
   origin: 'http://localhost:5173', // Your React App URL
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  credentials: true
-}));
+  credentials: true;
 app.use(express.json());
 
 // Apply our routes
