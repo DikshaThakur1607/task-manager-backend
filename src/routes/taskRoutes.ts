@@ -1,6 +1,6 @@
 import * as express from 'express'; // Use * as syntax for better compatibility
-import { createTask, getMyTasks, updateTask, deleteTask } from '../controllers/taskController';
-import { authenticateToken } from '../middleware/auth';
+import { createTask, getMyTasks, updateTask, deleteTask } from '../controllers/taskController.js';
+import { authenticateToken } from '../middleware/auth.js';
 //import { validate } from '../middleware/validate';
 //import { createTaskSchema } from '../schemas/taskSchema';
 

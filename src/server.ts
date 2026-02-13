@@ -4,8 +4,8 @@ import * as dotenv from 'dotenv';
 import helmet from 'helmet';
 
 // Important: Import your routes here so they are active!
-import { router as userRoutes } from './routes/userRoutes';
-import { router as taskRoutes } from './routes/taskRoutes';
+import { router as userRoutes } from './routes/userRoutes.js';
+import { router as taskRoutes } from './routes/taskRoutes.js';
 
 dotenv.config();
 

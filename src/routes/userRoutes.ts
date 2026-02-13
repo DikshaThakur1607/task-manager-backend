@@ -1,5 +1,5 @@
 import * as express from 'express'; // Required to fix the 'express is not defined' error
-import { signup, login, getUsers } from '../controllers/userController';
+import { signup, login, getUsers } from '../controllers/userController.js';
 //import { validate } from '../middleware/validate';
 //import { signupSchema } from '../schemas/userSchema';
 
