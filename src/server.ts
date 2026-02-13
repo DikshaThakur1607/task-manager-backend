@@ -5,10 +5,11 @@ import helmet from 'helmet';
 
 dotenv.config();
 
-const app: express.Application = express.default ? express.default() : express();
+const app = (express as any).default ? (express as any).default() : express();
 
 app.use(helmet());
-app.use(cors.default ? cors.default() : cors());
+const corsOptions = (cors as any).default ? (cors as any).default() : cors();
+app.use(corsOptions);
 app.use(express.json());
 
 // Ensure your routes are imported correctly below
