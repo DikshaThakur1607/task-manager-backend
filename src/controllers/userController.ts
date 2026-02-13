@@ -8,7 +8,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'my_permanent_secret_key_12345';
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    // Look inside req.body.body
+    const { email, password } = req.body.body; 
+    
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
       data: { email, password: hashedPassword },
@@ -16,13 +18,16 @@ export const signup = async (req: Request, res: Response) => {
     const { password: _, ...userSafe } = newUser;
     res.status(201).json(userSafe);
   } catch (error) {
+    console.error(error); // This helps you see the REAL error in Render logs
     res.status(400).json({ error: "Signup failed." });
   }
 };
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    // Look inside req.body.body
+    const { email, password } = req.body.body; 
+
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ error: "Invalid credentials" });
